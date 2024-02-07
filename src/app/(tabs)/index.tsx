@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 import EditScreenInfo from "@/src/components/EditScreenInfo";
 import { Text, View } from "@/src/components/Themed";
 import { MonoText } from "@/src/components/StyledText";
+import { COLORS } from "@/src/constants/Colors";
 
 export default function TabOneScreen() {
   return (
@@ -10,10 +11,9 @@ export default function TabOneScreen() {
       <MonoText style={styles.title}>taste map</MonoText>
       <View
         style={styles.separator}
-        lightColor="#eee"
+        lightColor={COLORS.morningSky}
         darkColor="rgba(255,255,255,0.1)"
       />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
     </View>
   );
 }
@@ -27,10 +27,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 48,
     fontWeight: "bold",
+    color: COLORS.cerulean,
   },
   separator: {
     marginVertical: 30,
-    height: 1,
+    height: 3,
     width: "80%",
   },
 });
