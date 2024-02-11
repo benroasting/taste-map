@@ -1,11 +1,10 @@
 import { StyleSheet } from "react-native";
 
-import EditScreenInfo from "@/src/components/EditScreenInfo";
 import { Text, View } from "@/src/components/Themed";
 import { MonoText } from "@/src/components/StyledText";
 import { COLORS } from "@/src/constants/Colors";
 
-export default function TabOneScreen() {
+export default function Home() {
   return (
     <View style={styles.container}>
       <MonoText style={styles.title}>taste map</MonoText>
