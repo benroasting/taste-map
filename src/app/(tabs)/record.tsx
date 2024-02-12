@@ -61,6 +61,16 @@ export default function Record() {
             label="Process"
             placeholder="Processing method"
           />
+          <TextInput
+            name="roastLevel"
+            label="Roast Level"
+            placeholder="How dark was the roast?"
+          />
+          <TextInput
+            name="tastingNotes"
+            label="Tasting Notes"
+            placeholder="What flavors did you taste?"
+          />
         </FormProvider>
         <View>
           <Button

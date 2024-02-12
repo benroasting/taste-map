@@ -56,20 +56,20 @@ export default TextInput;
 const styles = StyleSheet.create({
   label: {
     color: "white",
-    margin: 20,
+    margin: 5,
     marginLeft: 0,
   },
   container: {
     justifyContent: "center",
     padding: 8,
-    backgroundColor: COLORS.butter,
+    backgroundColor: COLORS.honey,
     borderColor: "white",
     borderRadius: 12,
     borderWidth: 1,
   },
   input: {
     backgroundColor: "white",
-    borderColor: "none",
+    borderColor: "white",
     height: 40,
     padding: 10,
     borderRadius: 4,
