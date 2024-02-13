@@ -55,7 +55,7 @@ export default TextInput;
 
 const styles = StyleSheet.create({
   label: {
-    color: "white",
+    color: COLORS.cerulean,
     margin: 5,
     marginLeft: 0,
   },
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     borderColor: "white",
     borderRadius: 12,
     borderWidth: 1,
+    marginBottom: 10,
   },
   input: {
     backgroundColor: "white",

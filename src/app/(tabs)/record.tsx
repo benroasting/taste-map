@@ -8,6 +8,7 @@ import {
   SubmitHandler,
   SubmitErrorHandler,
 } from "react-hook-form";
+import { COLORS } from "@/src/constants/Colors";
 
 type FormValues = {};
 
@@ -21,13 +22,13 @@ export default function Record() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Record</Text>
+      {/* <Text style={styles.title}>Record</Text>
       <View
         style={styles.separator}
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
-      />
-      <ScrollView>
+      /> */}
+      <ScrollView style={styles.scrollContainer}>
         <FormProvider {...methods}>
           <TextInput
             name="coffeeName"
@@ -66,6 +67,7 @@ export default function Record() {
             label="Roast Level"
             placeholder="How dark was the roast?"
           />
+          {/* Change this to a dropdown with options */}
           <TextInput
             name="tastingNotes"
             label="Tasting Notes"
@@ -74,8 +76,8 @@ export default function Record() {
         </FormProvider>
         <View>
           <Button
-            title="Login"
-            color="white"
+            title="Log Your Coffee"
+            color={COLORS.salmon}
             onPress={methods.handleSubmit(onSubmit, onError)}
           />
         </View>
@@ -95,8 +97,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   separator: {
-    marginVertical: 30,
+    marginVertical: 20,
     height: 1,
     width: "80%",
+  },
+  scrollContainer: {
+    width: "100%",
+    padding: 20,
   },
 });
