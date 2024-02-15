@@ -5,11 +5,13 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 
 import { useColorScheme } from "@/src/components/useColorScheme";
+import { TouchableOpacity } from "react-native";
+import { COLORS } from "../constants/Colors";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -53,11 +55,32 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
+  const router = useRouter();
+
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+        <Stack.Screen
+          name="(modals)/login"
+          options={{
+            title: "Log In or Sign Up",
+            presentation: "modal",
+            headerRight: () => (
+              <TouchableOpacity onPress={() => router.back()}>
+                <FontAwesome
+                  name="close"
+                  size={25}
+                  style={{ marginRight: 15, color: COLORS.eggplant }}
+                />
+              </TouchableOpacity>
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="coffee/[id]"
+          options={{ title: "Coffee Details" }}
+        />
       </Stack>
     </ThemeProvider>
   );

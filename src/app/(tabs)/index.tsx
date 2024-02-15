@@ -1,8 +1,10 @@
-import { StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 
 import { Text, View } from "@/src/components/Themed";
 import { MonoText } from "@/src/components/StyledText";
-import { COLORS } from "@/src/constants/Colors";
+import Colors, { COLORS } from "@/src/constants/Colors";
+import { Link } from "expo-router";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 export default function Home() {
   return (
@@ -13,6 +15,18 @@ export default function Home() {
         lightColor={COLORS.morningSky}
         darkColor="rgba(255,255,255,0.1)"
       />
+      <Link href="/(modals)/login" asChild>
+        <Pressable>
+          {({ pressed }) => (
+            <FontAwesome
+              name="bars"
+              title="Info"
+              size={25}
+              style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+            />
+          )}
+        </Pressable>
+      </Link>
     </View>
   );
 }
