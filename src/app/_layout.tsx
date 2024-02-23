@@ -1,17 +1,38 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Stack, useRouter } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect } from "react";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { useFonts } from "expo-font";
-import { Stack, useRouter } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
 
+//styles
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { useFonts } from "expo-font";
 import { useColorScheme } from "@/src/components/useColorScheme";
 import { TouchableOpacity } from "react-native";
 import { COLORS } from "../constants/Colors";
+
+import * as SecureStore from "expo-secure-store";
+import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
+
+const tokenCache = {
+  async getToken(key: string) {
+    try {
+      return SecureStore.getItemAsync(key);
+    } catch (err) {
+      return null;
+    }
+  },
+  async saveToken(key: string, value: string) {
+    try {
+      return SecureStore.setItemAsync(key, value);
+    } catch (error) {
+      return;
+    }
+  },
+};
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -49,13 +70,26 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
+  return (
+    <ClerkProvider
+      publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!}
+      tokenCache={tokenCache}
+    >
+      <RootLayoutNav />
+    </ClerkProvider>
+  );
 }
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
-
   const router = useRouter();
+  const { isLoaded, isSignedIn } = useAuth();
+
+  useEffect(() => {
+    if (isLoaded && !isSignedIn) {
+      router.push("/(modals)/login");
+    }
+  }, [isLoaded]);
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
@@ -77,10 +111,10 @@ function RootLayoutNav() {
             ),
           }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="coffee/[id]"
           options={{ title: "Coffee Details" }}
-        />
+        /> */}
       </Stack>
     </ThemeProvider>
   );
