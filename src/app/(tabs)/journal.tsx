@@ -1,8 +1,13 @@
-import { StyleSheet } from "react-native";
+import { Button, StyleSheet } from "react-native";
 
 import { Text, View } from "@/src/components/Themed";
 
+import { useAuth } from "@clerk/clerk-expo";
+import { Link } from "expo-router";
+
 export default function Journal() {
+  const { signOut, isSignedIn } = useAuth();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Coffee Journal</Text>
@@ -11,6 +16,12 @@ export default function Journal() {
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
+      <Button title="Log Out" onPress={() => signOut()} />
+      {!isSignedIn && (
+        <Link href={"/(modals)/login"}>
+          <Text>Login</Text>
+        </Link>
+      )}
     </View>
   );
 }
