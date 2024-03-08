@@ -5,8 +5,8 @@ import { Pressable, SafeAreaView } from "react-native";
 
 import Colors from "@/src/constants/Colors";
 import { COLORS } from "@/src/constants/Colors";
-import { useColorScheme } from "@/src/components/useColorScheme";
-import { useClientOnlyValue } from "@/src/components/useClientOnlyValue";
+import { useColorScheme } from "@/src/hooks/useColorScheme";
+import { useClientOnlyValue } from "@/src/hooks/useClientOnlyValue";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {

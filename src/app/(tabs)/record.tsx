@@ -1,7 +1,7 @@
 import { StyleSheet, Button, ScrollView } from "react-native";
 
 import { Text, View } from "@/src/components/Themed";
-import TextInput from "@/src/components/form/TextInput";
+import BorderTextInput from "@/src/components/form/BorderTextInput";
 import {
   useForm,
   FormProvider,
@@ -30,45 +30,45 @@ export default function Record() {
       /> */}
       <ScrollView style={styles.scrollContainer}>
         <FormProvider {...methods}>
-          <TextInput
+          <BorderTextInput
             name="coffeeName"
             label="Coffee/Blend Name"
             placeholder="Enter coffee name"
             rules={{ required: "Please provide a coffee name" }}
           />
-          <TextInput
+          <BorderTextInput
             name="origin"
             label="Origin"
             placeholder="Enter the country your coffee is from"
             rules={{ required: "Please provide the country" }}
           />
-          <TextInput
+          <BorderTextInput
             name="region"
             label="Region"
             placeholder="What region is it from?"
           />
-          <TextInput
+          <BorderTextInput
             name="farm"
             label="Farm/Mill"
             placeholder="What was the name of the farm, coop, or mill?"
           />
-          <TextInput
+          <BorderTextInput
             name="altitude"
             label="Altitude"
             placeholder="What altitude was your coffee grown at?"
           />
-          <TextInput
+          <BorderTextInput
             name="process"
             label="Process"
             placeholder="Processing method"
           />
-          <TextInput
+          <BorderTextInput
             name="roastLevel"
             label="Roast Level"
             placeholder="How dark was the roast?"
           />
           {/* Change this to a dropdown with options */}
-          <TextInput
+          <BorderTextInput
             name="tastingNotes"
             label="Tasting Notes"
             placeholder="What flavors did you taste?"

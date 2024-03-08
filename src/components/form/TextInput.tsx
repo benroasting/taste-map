@@ -15,28 +15,24 @@ import {
 } from "react-hook-form";
 
 interface TextInputProps extends RNTextInputProps, UseControllerProps {
-  label: string;
   defaultValue?: string;
 }
 
 const ControlledInput = (props: TextInputProps) => {
   const formContext = useFormContext();
   const { formState } = formContext;
-  const { label, name, rules, defaultValue, ...inputProps } = props;
+  const { name, rules, defaultValue, ...inputProps } = props;
   const { field } = useController({ name, rules, defaultValue });
 
   return (
-    <View style={styles.container}>
-      {label && <Text style={styles.label}>{label}</Text>}
-      <View>
-        <RNTextInput
-          style={styles.input}
-          onChangeText={field.onChange}
-          onBlur={field.onBlur}
-          value={field.value}
-          {...inputProps}
-        />
-      </View>
+    <View>
+      <RNTextInput
+        style={styles.input}
+        onChangeText={field.onChange}
+        onBlur={field.onBlur}
+        value={field.value}
+        {...inputProps}
+      />
     </View>
   );
 };
@@ -54,20 +50,6 @@ const TextInput = (props: TextInputProps) => {
 export default TextInput;
 
 const styles = StyleSheet.create({
-  label: {
-    color: COLORS.cerulean,
-    margin: 5,
-    marginLeft: 0,
-  },
-  container: {
-    justifyContent: "center",
-    padding: 8,
-    backgroundColor: COLORS.honey,
-    borderColor: "white",
-    borderRadius: 12,
-    borderWidth: 1,
-    marginBottom: 10,
-  },
   input: {
     backgroundColor: "white",
     borderColor: "white",

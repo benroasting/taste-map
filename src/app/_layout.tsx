@@ -10,7 +10,7 @@ import {
 //styles
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
-import { useColorScheme } from "@/src/components/useColorScheme";
+import { useColorScheme } from "@/src/hooks/useColorScheme";
 import { TouchableOpacity } from "react-native";
 import { COLORS } from "../constants/Colors";
 
