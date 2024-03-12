@@ -1,8 +1,8 @@
 import { Pressable, StyleSheet } from "react-native";
 
-import { Text, View } from "@/src/components/Themed";
+import { View } from "@/src/components/Themed";
 import { MonoText } from "@/src/components/StyledText";
-import Colors, { COLORS } from "@/src/constants/Colors";
+import { COLORS } from "@/src/constants/Colors";
 import { Link } from "expo-router";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 

@@ -30,6 +30,7 @@ export const defaultStyles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
+    flexDirection: "row",
     paddingHorizontal: 10,
   },
   buttonText: {
@@ -41,5 +42,9 @@ export const defaultStyles = StyleSheet.create({
     color: "black",
     fontSize: 16,
     fontFamily: "WorkSans",
+  },
+  buttonIcon: {
+    position: "absolute",
+    left: 16,
   },
 });
