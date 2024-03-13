@@ -87,7 +87,7 @@ function RootLayoutNav() {
 
   useEffect(() => {
     if (isLoaded && !isSignedIn) {
-      router.push("/(modals)/login");
+      router.push("/(modals)/susi");
     }
   }, [isLoaded]);
 
@@ -96,25 +96,10 @@ function RootLayoutNav() {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen
-          name="(modals)/login"
+          name="(modals)/susi"
           options={{
-            title: "Log In",
+            title: "Sign In / Sign Up",
             presentation: "modal",
-            headerRight: () => (
-              <TouchableOpacity onPress={() => router.back()}>
-                <FontAwesome
-                  name="close"
-                  size={25}
-                  style={{ marginRight: 15, color: COLORS.eggplant }}
-                />
-              </TouchableOpacity>
-            ),
-          }}
-        />
-        <Stack.Screen
-          name="(public)/register"
-          options={{
-            title: "Sign Up",
             headerRight: () => (
               <TouchableOpacity onPress={() => router.back()}>
                 <FontAwesome

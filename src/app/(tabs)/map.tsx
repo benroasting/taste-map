@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-
 import { Text, View } from "@/src/components/Themed";
 
 export default function Map() {
@@ -24,6 +23,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
+    fontFamily: "WorkSans",
   },
   separator: {
     marginVertical: 30,
