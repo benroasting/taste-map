@@ -18,9 +18,9 @@ export default function Journal() {
       />
       <Button title="Log Out" onPress={() => signOut()} />
       {!isSignedIn && (
-        <Link href={"/(modals)/login"}>
+        <Button title="Login" href={"/(modals)/sui"}>
           <Text>Login</Text>
-        </Link>
+        </Button>
       )}
     </View>
   );

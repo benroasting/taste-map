@@ -15,7 +15,7 @@ export default function Home() {
         lightColor={COLORS.morningSky}
         darkColor="rgba(255,255,255,0.1)"
       />
-      <Link href="/(modals)/login" asChild>
+      <Link href="/(modals)/susi" asChild>
         <Pressable>
           {({ pressed }) => (
             <FontAwesome
