@@ -98,8 +98,23 @@ function RootLayoutNav() {
         <Stack.Screen
           name="(modals)/login"
           options={{
-            title: "Log In or Sign Up",
+            title: "Log In",
             presentation: "modal",
+            headerRight: () => (
+              <TouchableOpacity onPress={() => router.back()}>
+                <FontAwesome
+                  name="close"
+                  size={25}
+                  style={{ marginRight: 15, color: COLORS.eggplant }}
+                />
+              </TouchableOpacity>
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="(public)/register"
+          options={{
+            title: "Sign Up",
             headerRight: () => (
               <TouchableOpacity onPress={() => router.back()}>
                 <FontAwesome

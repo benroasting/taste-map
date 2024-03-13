@@ -16,15 +16,39 @@ import { defaultStyles } from "@/src/constants/Styles";
 import { Ionicons } from "@expo/vector-icons";
 
 import { useWarmUpBrowser } from "@/src/hooks/useWarmUpBrowser";
-import { useSignIn } from "@clerk/clerk-expo";
+import { useOAuth, useSignIn } from "@clerk/clerk-expo";
 import { COLORS } from "@/src/constants/Colors";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { MonoText } from "@/src/components/StyledText";
 
-type FormValues = {};
+enum AuthStrategy {
+  Google = "oauth_google",
+  // Add more strategies here
+  // Add more strategies here
+}
 
 const Login = () => {
   useWarmUpBrowser();
+  const router = useRouter();
+
+  const { startOAuthFlow: googleAuth } = useOAuth({ strategy: "oauth_google" });
+
+  const onSelectAuth = async (strategy: AuthStrategy) => {
+    const selectAuth = {
+      [AuthStrategy.Google]: googleAuth,
+    }[strategy];
+
+    try {
+      const { createdSessionId, setActive } = await selectAuth();
+
+      if (createdSessionId) {
+        setActive!({ session: createdSessionId });
+        router.back();
+      }
+    } catch (err) {
+      console.error("OAuth error", err);
+    }
+  };
 
   const { signIn, setActive, isLoaded } = useSignIn();
 
@@ -79,21 +103,23 @@ const Login = () => {
         <Text style={defaultStyles.buttonText}>Continue</Text>
       </TouchableOpacity>
 
-      <Link href="/(modals)/register" asChild>
-        <Pressable style={styles.links}>
-          <Text>Create an account</Text>
-        </Pressable>
+      {/* <Pressable onPress={() => router.push("/(public)/register")}>
+        <Text style={styles.links}>Create an account</Text>
+      </Pressable>
+      <Link href={"/(public)/register"} style={styles.links} asChild>
+        <Text style={styles.links}>Create an account</Text>
       </Link>
-      <Link href="/(modals)/reset" asChild>
-        <Pressable style={styles.links}>
-          <Text>Forgot your password?</Text>
-        </Pressable>
-      </Link>
+      <Link href={"/(public)/reset"} style={styles.links} asChild>
+        <Text>Forgot your password?</Text>
+      </Link> */}
 
       <Separator text="or" />
 
       <View>
-        <TouchableOpacity style={defaultStyles.buttonOutline}>
+        <TouchableOpacity
+          style={defaultStyles.buttonOutline}
+          onPress={() => onSelectAuth(AuthStrategy.Google)}
+        >
           <Ionicons
             name="logo-google"
             size={24}
@@ -122,8 +148,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   links: {
-    justifyContent: "center",
-    alignItems: "center",
+    textAlign: "center",
     paddingBottom: 2,
   },
 });
