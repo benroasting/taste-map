@@ -8,9 +8,8 @@ import {
   ActivityIndicator,
   TextInput,
   Pressable,
-  Button,
 } from "react-native";
-import { Stack, router, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { useOAuth, useSignIn, useSignUp } from "@clerk/clerk-expo";
 import { useWarmUpBrowser } from "@/src/hooks/useWarmUpBrowser";
 
@@ -49,11 +48,17 @@ const Susi = () => {
   const [password, setPassword] = useState("");
   const [pendingVerification, setPendingVerification] = useState(false);
   const [code, setCode] = useState("");
+  const [successfulReset, setSuccessfulReset] = useState(false);
   const [loading, setLoading] = useState(false);
   const [intendToRegister, setIntendToRegister] = useState(false);
+  const [intendToReset, setIntendToReset] = useState(false);
 
   const onRegisterPress = () => {
     setIntendToRegister(true);
+  };
+
+  const onResetPress = () => {
+    setIntendToReset(true);
   };
 
   const { startOAuthFlow: googleAuth } = useOAuth({
@@ -62,79 +67,63 @@ const Susi = () => {
 
   const Login = () => {
     return (
-      <View style={styles.container}>
-        <MonoText style={styles.title}>taste map</MonoText>
-        <ActivityIndicator
-          animating={loading}
-          size="large"
-          color={COLORS.honey}
-        />
-        <TextInput
-          placeholder="Email"
-          value={emailAddress}
-          onChangeText={setEmailAddress}
-          style={[defaultStyles.inputField, { marginBottom: 20 }]}
-        />
-        <TextInput
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          style={[defaultStyles.inputField, { marginBottom: 20 }]}
-          secureTextEntry
-        />
-        <TouchableOpacity
-          style={[defaultStyles.button, { marginBottom: 20 }]}
-          onPress={onSignInPress}
-        >
-          <Text style={defaultStyles.buttonText}>Continue</Text>
-        </TouchableOpacity>
-
-        {/* 
-      TODO: Add links to register and reset password
-      Register and Reset links and/or modals not working */}
-
-        {/* {/* <Pressable onPress={() => router.push("/(public)/register")}>
-        <Text style={styles.links}>Create an account</Text>
-      </Pressable> */}
-        <TouchableOpacity onPress={onRegisterPress} style={styles.links}>
-          <Text style={styles.links}>Create an account</Text>
-        </TouchableOpacity>
-        {/* <Link href={"/(public)/reset"} style={styles.links} asChild>
-        <Text>Forgot your password?</Text>
-      </Link>  */}
-
-        <Separator text="or" />
-
-        <View>
-          <TouchableOpacity
-            style={defaultStyles.buttonOutline}
-            onPress={() => onSelectAuth(AuthStrategy.Google)}
-          >
-            <Ionicons
-              name="logo-google"
-              size={24}
-              style={defaultStyles.buttonIcon}
-              color="black"
+      <>
+        {!intendToReset && (
+          <>
+            <TextInput
+              placeholder="Email"
+              value={emailAddress}
+              onChangeText={setEmailAddress}
+              style={[defaultStyles.inputField, { marginBottom: 20 }]}
             />
-            <Text style={defaultStyles.buttonOutlineText}>
-              Continue with Google
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+            <TextInput
+              placeholder="Password"
+              value={password}
+              onChangeText={setPassword}
+              style={[defaultStyles.inputField, { marginBottom: 20 }]}
+              secureTextEntry
+            />
+            <TouchableOpacity
+              style={[defaultStyles.button, { marginBottom: 20 }]}
+              onPress={onSignInPress}
+            >
+              <Text style={defaultStyles.buttonText}>Continue</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={onRegisterPress} style={styles.links}>
+              <Text style={styles.links}>Create an account</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onResetPress} style={styles.links}>
+              <Text style={styles.links}>Reset Password</Text>
+            </TouchableOpacity>
+
+            <Separator text="or" />
+
+            <View>
+              <TouchableOpacity
+                style={defaultStyles.buttonOutline}
+                onPress={() => onSelectAuth(AuthStrategy.Google)}
+              >
+                <Ionicons
+                  name="logo-google"
+                  size={24}
+                  style={defaultStyles.buttonIcon}
+                  color="black"
+                />
+                <Text style={defaultStyles.buttonOutlineText}>
+                  Continue with Google
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
+      </>
     );
   };
 
   const Register = () => {
     return (
-      <View style={styles.container}>
-        <Stack.Screen options={{ headerBackVisible: !pendingVerification }} />
-        <MonoText style={styles.title}>taste map</MonoText>
-        <ActivityIndicator
-          animating={loading}
-          size="large"
-          color={COLORS.honey}
-        />
+      <>
         {!pendingVerification && (
           <>
             <TextInput
@@ -183,7 +172,55 @@ const Susi = () => {
             </Pressable>
           </>
         )}
-      </View>
+      </>
+    );
+  };
+
+  const Reset = () => {
+    return (
+      <>
+        {!successfulReset && (
+          <>
+            <TextInput
+              autoCapitalize="none"
+              placeholder="Email"
+              value={emailAddress}
+              onChangeText={setEmailAddress}
+              style={[defaultStyles.inputField, { marginBottom: 20 }]}
+            />
+            <Pressable
+              style={[defaultStyles.button, { marginBottom: 10 }]}
+              onPress={onRequestReset}
+            >
+              <Text style={defaultStyles.buttonText}>Send Reset Email</Text>
+            </Pressable>
+          </>
+        )}
+
+        {successfulReset && (
+          <>
+            <TextInput
+              value={code}
+              placeholder="Code..."
+              style={[defaultStyles.inputField, { marginBottom: 20 }]}
+              onChangeText={setCode}
+            />
+            <TextInput
+              placeholder="New password"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              style={[defaultStyles.inputField, { marginBottom: 20 }]}
+            />
+            <Pressable
+              style={[defaultStyles.button, { marginBottom: 10 }]}
+              onPress={onReset}
+            >
+              <Text style={defaultStyles.buttonText}>Set New Password</Text>
+            </Pressable>
+          </>
+        )}
+      </>
     );
   };
 
@@ -268,9 +305,50 @@ const Susi = () => {
     }
   };
 
+  const onRequestReset = async () => {
+    try {
+      await signIn!.create({
+        strategy: "reset_password_email_code",
+        identifier: emailAddress,
+      });
+      setSuccessfulReset(true);
+    } catch (error: any) {
+      alert(error.error[0].message);
+    }
+  };
+
+  const onReset = async () => {
+    if (!isSignInLoaded) {
+      return;
+    }
+    setLoading(true);
+    try {
+      const result = await signIn!.attemptFirstFactor({
+        strategy: "reset_password_email_code",
+        code,
+        password,
+      });
+      alert("Password reset successfully");
+      await setActiveSI({ session: result.createdSessionId });
+    } catch (err: any) {
+      alert(err.errors[0].message);
+    } finally {
+      setLoading(false);
+      router.back();
+    }
+  };
+
   return (
     <View style={styles.container}>
+      <MonoText style={styles.title}>taste map</MonoText>
+      <ActivityIndicator
+        animating={loading}
+        size="large"
+        color={COLORS.honey}
+        style={{ marginBottom: 20 }}
+      />
       {intendToRegister ? <Register /> : <Login />}
+      {intendToReset && <Reset />}
     </View>
   );
 };
