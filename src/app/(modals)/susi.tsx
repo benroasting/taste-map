@@ -28,8 +28,12 @@ enum AuthStrategy {
   // Add more strategies here
 }
 
+// for production need to connect to google cloud platform and add credentials
+// walkthrough (1:07:16) - airbnb clone with react native - simon grimm youtube
+
 const Susi = () => {
   useWarmUpBrowser();
+  const router = useRouter();
 
   const {
     signIn,
@@ -41,8 +45,6 @@ const Susi = () => {
     setActive: setActiveSU,
     isLoaded: isSignUpLoaded,
   } = useSignUp();
-
-  const router = useRouter();
 
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");

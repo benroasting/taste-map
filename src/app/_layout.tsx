@@ -1,5 +1,8 @@
-import { Stack, useRouter } from "expo-router";
+// Libs
+import { Slot, Stack, useRouter, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
+import * as SecureStore from "expo-secure-store";
+import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
 import { useEffect } from "react";
 import {
   DarkTheme,
@@ -7,15 +10,12 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 
-//styles
+// Styles
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
 import { useColorScheme } from "@/src/hooks/useColorScheme";
 import { TouchableOpacity } from "react-native";
 import { COLORS } from "../constants/Colors";
-
-import * as SecureStore from "expo-secure-store";
-import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
 
 const tokenCache = {
   async getToken(key: string) {
@@ -49,7 +49,6 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require("../../assets/fonts/SpaceMono-Regular.ttf"),
     WorkSans: require("../../assets/fonts/WorkSans-VariableFont_wght.ttf"),
     WorkSansItalic: require("../../assets/fonts/WorkSans-Italic-VariableFont_wght.ttf"),
     ...FontAwesome.font,
@@ -81,9 +80,9 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+  const { isLoaded, isSignedIn } = useAuth();
   const colorScheme = useColorScheme();
   const router = useRouter();
-  const { isLoaded, isSignedIn } = useAuth();
 
   useEffect(() => {
     if (isLoaded && !isSignedIn) {

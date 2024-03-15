@@ -3,9 +3,11 @@ import { Tabs } from "expo-router";
 
 import { useClientOnlyValue } from "@/src/hooks/useClientOnlyValue";
 
+// Styles
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { COLORS } from "@/src/constants/Colors";
 import { useColorScheme } from "@/src/hooks/useColorScheme";
+import { useAuth } from "@clerk/clerk-expo";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -17,6 +19,7 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const { isSignedIn } = useAuth();
 
   return (
     <Tabs
@@ -35,20 +38,6 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="binoculars" color={color} />
           ),
-          // headerRight: () => (
-          //   <Link href="/modal" asChild>
-          //     <Pressable>
-          //       {({ pressed }) => (
-          //         <FontAwesome
-          //           name="info-circle"
-          //           size={25}
-          //           color={Colors[colorScheme ?? "light"].text}
-          //           style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-          //         />
-          //       )}
-          //     </Pressable>
-          //   </Link>
-          // ),
         }}
       />
       <Tabs.Screen
@@ -64,6 +53,7 @@ export default function TabLayout() {
           title: "Map",
           tabBarIcon: ({ color }) => <TabBarIcon name="map" color={color} />,
         }}
+        // disabled={!isSignedIn}
       />
       <Tabs.Screen
         name="journal"
