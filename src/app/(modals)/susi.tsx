@@ -76,17 +76,17 @@ const Susi = () => {
               placeholder="Email"
               value={emailAddress}
               onChangeText={setEmailAddress}
-              style={[defaultStyles.inputField, { marginBottom: 20 }]}
+              style={[defaultStyles.inputField]}
             />
             <TextInput
               placeholder="Password"
               value={password}
               onChangeText={setPassword}
-              style={[defaultStyles.inputField, { marginBottom: 20 }]}
+              style={[defaultStyles.inputField]}
               secureTextEntry
             />
             <TouchableOpacity
-              style={[defaultStyles.button, { marginBottom: 20 }]}
+              style={[defaultStyles.button]}
               onPress={onSignInPress}
             >
               <Text style={defaultStyles.buttonText}>Continue</Text>
@@ -133,20 +133,17 @@ const Susi = () => {
               placeholder="Email"
               value={emailAddress}
               onChangeText={setEmailAddress}
-              style={[defaultStyles.inputField, { marginBottom: 20 }]}
+              style={[defaultStyles.inputField]}
             />
             <TextInput
               placeholder="Password"
               value={password}
               onChangeText={setPassword}
               secureTextEntry
-              style={[defaultStyles.inputField, { marginBottom: 20 }]}
+              style={[defaultStyles.inputField]}
             />
             <View>
-              <Pressable
-                style={[defaultStyles.button, { marginBottom: 10 }]}
-                onPress={onSignUpPress}
-              >
+              <Pressable style={[defaultStyles.button]} onPress={onSignUpPress}>
                 <Text style={defaultStyles.buttonText}>Sign Up</Text>
               </Pressable>
               <Pressable
@@ -165,7 +162,7 @@ const Susi = () => {
               <TextInput
                 value={code}
                 placeholder="Enter the code from your email"
-                style={[defaultStyles.inputField, { marginBottom: 20 }]}
+                style={[defaultStyles.inputField]}
                 onChangeText={setCode}
               />
             </View>
@@ -188,12 +185,9 @@ const Susi = () => {
               placeholder="Email"
               value={emailAddress}
               onChangeText={setEmailAddress}
-              style={[defaultStyles.inputField, { marginBottom: 20 }]}
+              style={[defaultStyles.inputField]}
             />
-            <Pressable
-              style={[defaultStyles.button, { marginBottom: 10 }]}
-              onPress={onRequestReset}
-            >
+            <Pressable style={[defaultStyles.button]} onPress={onRequestReset}>
               <Text style={defaultStyles.buttonText}>Send Reset Email</Text>
             </Pressable>
           </>
@@ -204,7 +198,7 @@ const Susi = () => {
             <TextInput
               value={code}
               placeholder="Code..."
-              style={[defaultStyles.inputField, { marginBottom: 20 }]}
+              style={[defaultStyles.inputField]}
               onChangeText={setCode}
             />
             <TextInput
@@ -212,7 +206,7 @@ const Susi = () => {
               value={password}
               onChangeText={setPassword}
               secureTextEntry
-              style={[defaultStyles.inputField, { marginBottom: 20 }]}
+              style={[defaultStyles.inputField]}
             />
             <Pressable
               style={[defaultStyles.button, { marginBottom: 10 }]}

@@ -13,6 +13,7 @@ export const defaultStyles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     backgroundColor: Colors.light.background,
+    marginBottom: 20,
   },
   button: {
     backgroundColor: COLORS.cerulean,
@@ -21,6 +22,7 @@ export const defaultStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
+    marginBottom: 20,
   },
   buttonOutline: {
     backgroundColor: "transparent",

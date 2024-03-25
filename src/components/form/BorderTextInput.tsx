@@ -62,15 +62,14 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     padding: 8,
-    backgroundColor: COLORS.honey,
     borderColor: "white",
     borderRadius: 12,
     borderWidth: 1,
-    marginBottom: 10,
   },
   input: {
-    backgroundColor: "white",
-    borderColor: "white",
+    backgroundColor: COLORS.mist,
+    opacity: 0.5,
+    borderColor: COLORS.mist,
     height: 40,
     padding: 10,
     borderRadius: 4,
