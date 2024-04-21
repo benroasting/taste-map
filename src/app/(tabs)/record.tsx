@@ -2,79 +2,77 @@ import { StyleSheet, Button, ScrollView } from "react-native";
 
 import { Text, View } from "@/src/components/Themed";
 import BorderTextInput from "@/src/components/form/BorderTextInput";
-import {
-  useForm,
-  FormProvider,
-  SubmitHandler,
-  SubmitErrorHandler,
-} from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { CreateRecord } from "../types/CreateRecord"
 import { COLORS } from "@/src/constants/Colors";
 
-type FormValues = {};
+interface CreateRecordProps {
+  onSubmit: (data: CreateRecord) => void;
+  isPending: boolean,
+  isError: boolean
+}
 
-export default function Record() {
-  const { ...methods } = useForm();
-  const onSubmit: SubmitHandler<FormValues> = (data) => console.log({ data });
+export default function Record({ onSubmit, isPending, isError}: CreateRecordProps) {
+  const { register, handleSubmit, formState: {errors} } = useForm<CreateRecord>();
 
-  const onError: SubmitErrorHandler<FormValues> = (errors, e) => {
-    return console.log(errors);
-  };
 
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollContainer}>
-        <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <BorderTextInput
-            name="coffeeName"
+            {...register("coffeeName")}
             label="Coffee/Blend Name"
             placeholder="Enter coffee name"
             rules={{ required: "Please provide a coffee name" }}
           />
           <BorderTextInput
-            name="origin"
+            {...register("origin")}
             label="Origin"
             placeholder="Enter the country your coffee is from"
             rules={{ required: "Please provide the country" }}
           />
           <BorderTextInput
-            name="region"
+            {...register("region")}
             label="Region"
             placeholder="What region is it from?"
           />
           <BorderTextInput
-            name="farm"
+            {...register("farm")}
             label="Farm/Mill"
             placeholder="What was the name of the farm, coop, or mill?"
           />
           <BorderTextInput
-            name="altitude"
+            {...register("altitude")}
             label="Altitude"
             placeholder="What altitude was your coffee grown at?"
           />
           <BorderTextInput
-            name="process"
+            {...register("process")}
             label="Process"
             placeholder="Processing method"
           />
           <BorderTextInput
-            name="roastLevel"
+            {...register("roastLevel")}
             label="Roast Level"
             placeholder="How dark was the roast?"
           />
           {/* Change this to a dropdown with options */}
           <BorderTextInput
-            name="tastingNotes"
+            {...register("tastingNotes")}
             label="Tasting Notes"
             placeholder="What flavors did you taste?"
           />
-        </FormProvider>
         <View>
-          <Button
-            title="Log Your Coffee"
+        <button type="submit" disabled={isPending}>
+          {isPending ? "Creating Record..." : "Record Your Coffee"}
+        </button>
+          {/* <Button
+          title={isPending ? "Creating Entry..." : "Submit Coffee"}
             color={COLORS.salmon}
-            onPress={methods.handleSubmit(onSubmit, onError)}
-          />
+          >Submit</Button> */}
         </View>
+        </form>
       </ScrollView>
     </View>
   );
